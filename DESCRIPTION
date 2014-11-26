@@ -1,0 +1,12 @@
+Package: ecoclim
+Title: Tools for common EcoClim data operations
+Version: 0.1
+Authors@R: "Matthew Kling <matt_kling@natureserve.org> [aut, cre]"
+Description: This package offers functions to help manipulate climate data
+Depends: R (>= 3.0)
+License: What license is it under?
+LazyData: true
+Imports:
+    raster,
+	rgdal,
+	ggplot2
