@@ -9,6 +9,7 @@ capFirst <- function(x){
       paste0(toupper(first), rest)
 }
 
+
 ######################################
 
 # this function parses a vector of strings, returning a data frame with factors found in those strings
@@ -150,36 +151,39 @@ ggAddCartography <- function(plot, mask, features){
 
 # this is a simple translation dictionary that can be used to look up names, units, abbreviations, etc
 
-translate <- list(tmin=list(words="minimum temperature", units="(deg C)", delta="(deg C)"),
-                  tmax=list(words="maximum temperature", units="(deg C)", delta="(deg C)"),
-                  tmean=list(words="mean temperature", units="(deg C)", delta="(deg C)"),
-                  tdmean=list(words="dew point", units="(deg C)", delta="(deg C)"),
-                  ppt=list(words="precipitation", units="(mm)", delta="(ratio)"),
-                  vpr=list(words="vapor pressure", units="(Pa)", delta="(Pa)"),
-                  cmd=list(words="climatic moisture deficit", units="(mm)", delta="(ratio)"),
-                  nffd=list(words="number of frost-free days", units="(days)", delta="(days)"),
-                  ffp=list(words="frost-free period", units="(days)", delta="(days)"),
+translate <- function(key, to){
+      dict <- list(tmin=list(words="minimum temperature", units="(deg C)", delta="(deg C)"),
+                   tmax=list(words="maximum temperature", units="(deg C)", delta="(deg C)"),
+                   tmean=list(words="mean temperature", units="(deg C)", delta="(deg C)"),
+                   tdmean=list(words="dew point", units="(deg C)", delta="(deg C)"),
+                   ppt=list(words="precipitation", units="(mm)", delta="(ratio)"),
+                   vpr=list(words="vapor pressure", units="(Pa)", delta="(Pa)"),
+                   cmd=list(words="climatic moisture deficit", units="(mm)", delta="(ratio)"),
+                   nffd=list(words="number of frost-free days", units="(days)", delta="(days)"),
+                   ffp=list(words="frost-free period", units="(days)", delta="(days)"),
 
-                  mk_sl=list(words="Mann-Kendall p-value", units="MK p-value"),
-                  ts_change=list(words="Theil-Sen change magnitude", units="_variable_units_"),
-                  delta=list(words="Delta", units="_variable_delta_"),
-                  zscore=list(words="Standard (z) score", units="standard\ndeviations"),
-                  percentile=list(words="Anomaly percentile", units="percentile"),
+                   mk_sl=list(words="Mann-Kendall p-value", units="MK p-value"),
+                   ts_change=list(words="Theil-Sen change magnitude", units="_variable_units_"),
+                   delta=list(words="Delta", units="_variable_delta_"),
+                   zscore=list(words="Standard (z) score", units="standard\ndeviations"),
+                   percentile=list(words="Anomaly percentile", units="percentile"),
 
-                  "01"=list(words="January", abbv="Jan", letter="J"),
-                  "02"=list(words="February", abbv="Feb", letter="F"),
-                  "03"=list(words="March", abbv="Mar", letter="M"),
-                  "04"=list(words="April", abbv="Apr", letter="A"),
-                  "05"=list(words="May", abbv="May", letter="M"),
-                  "06"=list(words="June", abbv="Jun", letter="J"),
-                  "07"=list(words="July", abbv="Jul", letter="J"),
-                  "08"=list(words="August", abbv="Aug", letter="A"),
-                  "09"=list(words="September", abbv="Sep", letter="S"),
-                  "10"=list(words="October", abbv="Oct", letter="O"),
-                  "11"=list(words="November", abbv="Nov", letter="N"),
-                  "12"=list(words="December", abbv="Dec", letter="D"),
-                  "14"=list(words="Annual", abbv="Annual", letter="Avg"))
-
+                   "01"=list(words="January", abbv="Jan", letter="J"),
+                   "02"=list(words="February", abbv="Feb", letter="F"),
+                   "03"=list(words="March", abbv="Mar", letter="M"),
+                   "04"=list(words="April", abbv="Apr", letter="A"),
+                   "05"=list(words="May", abbv="May", letter="M"),
+                   "06"=list(words="June", abbv="Jun", letter="J"),
+                   "07"=list(words="July", abbv="Jul", letter="J"),
+                   "08"=list(words="August", abbv="Aug", letter="A"),
+                   "09"=list(words="September", abbv="Sep", letter="S"),
+                   "10"=list(words="October", abbv="Oct", letter="O"),
+                   "11"=list(words="November", abbv="Nov", letter="N"),
+                   "12"=list(words="December", abbv="Dec", letter="D"),
+                   "14"=list(words="Annual", abbv="Annual", letter="Avg"))
+      return(dict[[key]][[to]])
+}
+translate("01", "letter")
 
 #############################################
 
