@@ -41,6 +41,7 @@ capFirst <- function(x){
 #'
 #' @return Data frame with a column for the parsed strings and for each of the
 #'   factors.
+#' @aliases prs
 
 parseMetadata <- function(paths, is.dir=T, variables=NULL, keys=NULL, recursive=T, drops=NULL, skips=NULL, simplify=T){
 
@@ -89,8 +90,6 @@ parseMetadata <- function(paths, is.dir=T, variables=NULL, keys=NULL, recursive=
       d
 
 }
-
-prs <- parseMetadata # add a second name for backward-compatibility
 
 
 
