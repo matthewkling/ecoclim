@@ -2,7 +2,10 @@
 
 ####################################
 
-# function to capitalize the first letter of a string
+#' Capitalize first letter of a string.
+#'
+#' Capitalizes the first letter of a string.
+#' @param x A character vector.
 capFirst <- function(x){
       first <- substr(x, 1, 1)
       rest <- substr(x, 2, nchar(x))
@@ -12,20 +15,34 @@ capFirst <- function(x){
 
 ######################################
 
-# this function parses a vector of strings, returning a data frame with factors found in those strings
-# it takes a folder path (or alternatively a character vector) as input,
-# and it returns a data frame with a row for each file in the folder (or for each item in the vector) and columns containing matched factors
+#' Parse factors found in filenames or strings.
+#'
+#' This function parses a vector of strings, returning a data frame of factors
+#' found in those strings. It takes a folder path (or alternatively a character
+#' vector) as input, and it returns a data frame with a row for each file in the
+#' folder (or for each item in the vector) and columns containing matched
+#' factors.
+#'
+#' @param paths A character vector of complete file directory paths.
+#' @param variables Optional character vector selecting the subset of default
+#'   keys titles to employ.
+#' @param keys A list of named character vectors, representing variable title
+#'   and factors.
+#' @param is.dir Logical indicating whether path is a file directory, or just a
+#'   vector of character strings to parse.
+#' @param recursive Logical indicating whether subdirectories should be
+#'   searched.
+#' @param drops A character vector of path patterns that will cause that path to
+#'   be dropped from results.
+#' @param skips A character vector of path patterns to ignore during matching,
+#'   typically used if folder names contain factor patterns.
+#' @param simplify Logical indicating whether columns with all NA values should
+#'   be removed from result.
+#'
+#' @return Data frame with a column for the parsed strings and for each of the
+#'   factors.
 
 parseMetadata <- function(paths, is.dir=T, variables=NULL, keys=NULL, recursive=T, drops=NULL, skips=NULL, simplify=T){
-
-      # paths: a character vector of complete file directory paths
-      # variables: optional character vector selecting the subset of default keys titles to employ
-      # keys: a list of named character vectors, representing variable title and factors
-      # is.dir: (T/F) is paths a file directory, or just a vector of character strings to parse
-      # recursive: (T/F) should subdirectories be searched
-      # drops: a character vector of path patterns that will cause that path to be dropped from results
-      # skips: a character vector of path patterns to ignore during matching, typically used if folder names contain factor patterns
-      # simplify: (T/F) should columns with all NA values be removed from result
 
       # default keys
       key <- list(
@@ -80,9 +97,17 @@ prs <- parseMetadata # add a second name for backward-compatibility
 
 ########################################
 
-# this is a simple translation dictionary that can be used to look up names, units, abbreviations, etc
+#' Translate common climate data abbreviations.
+#'
+#' This is a simple translation dictionary that can be used to look up things
+#' like names and units, for climate variables, statistics, and months.
+#'
+#' @param key A character vector.
+#' @param to A character vector, must be either "words", "units", "delta",
+#'   "abbv", or "letter". These are not all available for every type of key.
+#' @return A character vector of translated results.
 
-translate <- function(key, to){
+translate <- function(key, to="words"){
       dict <- list(tmin=list(words="minimum temperature", units="(deg C)", delta="(deg C)"),
                    tmax=list(words="maximum temperature", units="(deg C)", delta="(deg C)"),
                    tmean=list(words="mean temperature", units="(deg C)", delta="(deg C)"),
@@ -112,19 +137,25 @@ translate <- function(key, to){
                    "11"=list(words="November", abbv="Nov", letter="N"),
                    "12"=list(words="December", abbv="Dec", letter="D"),
                    "14"=list(words="Annual", abbv="Annual", letter="Avg"))
-      return(dict[[key]][[to]])
+
+      sapply(key, FUN=function(x)dict[[x]][[to]])
 }
-translate("01", "letter")
 
 
 
 #############################################
 
-# this convenience function is a wrapper around data frame subsetting, designed for use inside loops that iterate through raster data directories
+#' Subsetting by loop iterators.
+#'
+#' This convenience function is a wrapper around data frame subsetting, designed
+#' for use inside loops that iterate through raster data directories.
+#'
+#' @param data Data frame from which records will be selected.
+#' @param ... Filtration factors, saved as varialbes with names matching data
+#'   columns.
+#' @return Data frame subsetted to match filtration factors.
 
 sift <- function(data, ...){
-      # data: data frame from which record(s) will be selected
-      # ...: filtration factors, saved as variables with names matching data columns.
       variables <- data.frame(..., stringsAsFactors=F)
       for(var in names(variables)) data <- data[data[,var]==variables[1,var],]
       return(data)
@@ -132,9 +163,15 @@ sift <- function(data, ...){
 
 #########################################
 
-# this function takes a metadata frame (likely generated via parseMetadata) and compiles all the files into a single data frame. supports multiband files.
+#' Create a data frame from raster files
+#'
+#' This function takes a metadata frame (likely generated via parseMetadata) and
+#' compiles all the files into a single data frame. Supports multiband files.
+#'
+#' @param metadata A data frame with a "path" variable and other metadata
+#'   variables.
+#' @return A data frame, with a row for each pixel of each raster in metadata.
 frameRasters <- function(metadata) {
-      # metadata: a data frame with a "path" variable and other metadata variables
 
       for(i in 1:nrow(metadata)){
             s <- stack(metadata$path[i])
