@@ -30,8 +30,8 @@ loadShapefile <- function(directory, filename){
 #' @param raster A *Raster object to be clipped.
 #' @param polygon A spatial polygon object used for clipping.
 #' @return A clipped *Raster object.
-#' @aliases clp
-crp <- function(raster, polygon){
+#' @aliases crp
+clp <- function(raster, polygon){
       raster <- crop(raster, polygon)  # crop raster to boundary extent (rectangle)
       if(class(polygon)!="RasterLayer"){polygon <- rasterize(polygon, raster)}  # convert boundary to raster mask
       projection(raster) <- projection(polygon)  # force sync coordinate systems -- they must be known to match!
