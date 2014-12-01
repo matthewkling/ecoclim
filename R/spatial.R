@@ -10,8 +10,9 @@
 #'  @param directory The full path to the file folder where the shapefile lives, as a character.
 #'  @param filename The bare name of the shapefile, without extenstion, as a character.
 #'  @return A spatial object.
+#'  @aliases getBoundary
 
-getBoundary <- function(directory, filename){
+loadShapefile <- function(directory, filename){
       w <- getwd()
       setwd(directory)
       b <- rgdal::readOGR(dsn=directory, layer=filename)
