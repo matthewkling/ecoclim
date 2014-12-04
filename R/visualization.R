@@ -46,3 +46,24 @@ flake <- function(target, group, offset, summary=F){
 #'
 #' Abbreviated version of the element_blank() function from ggplot2
 eb <- function() ggplot2::element_blank()
+
+
+#######################################
+
+#' Add reference lines to a ggplot
+#'
+#' This is a convenience function that creates x and/or y axis reference lines
+#' that can be added to a ggplot object.
+#'
+#' @param axis Character vector specifying the axis, either "x", "y", or "xy".
+#' @param xintercept, yintercept Numeric value.
+#' @param color Color.
+#' @param size Size.
+#' @return A ggplot layer or layers.
+#'
+axes <- function(axis, xintercept=0, yintercept=0, color="gray", size=1){
+      if(axis=="y"){return(geom_vline(xintercept=xintercept, color=color, size=size))}
+      if(axis=="x"){return(geom_hline(yintercept=yintercept, color=color, size=size))}
+      if(axis=="xy"){return(list(geom_vline(xintercept=xintercept, color=color, size=size),
+                                 geom_hline(yintercept=yintercept, color=color, size=size)))}
+}
