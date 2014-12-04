@@ -171,9 +171,10 @@ sift <- function(data, ...){
 #'   variables.
 #' @return A data frame, with a row for each pixel of each raster in metadata.
 frameRasters <- function(metadata) {
+      require(raster)
 
       for(i in 1:nrow(metadata)){
-            s <- raster::stack(metadata$path[i])
+            s <- stack(metadata$path[i])
             if(nlayers(s)==1) names(s) <- "value"
             s <- as.data.frame(rasterToPoints(s))
 
