@@ -173,7 +173,7 @@ sift <- function(data, ...){
 frameRasters <- function(metadata) {
 
       for(i in 1:nrow(metadata)){
-            s <- stack(metadata$path[i])
+            s <- raster::stack(metadata$path[i])
             if(nlayers(s)==1) names(s) <- "value"
             s <- as.data.frame(rasterToPoints(s))
 
