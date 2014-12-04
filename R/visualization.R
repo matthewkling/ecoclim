@@ -67,3 +67,10 @@ axes <- function(axis, xintercept=0, yintercept=0, color="gray", size=1){
       if(axis=="xy"){return(list(geom_vline(xintercept=xintercept, color=color, size=size),
                                  geom_hline(yintercept=yintercept, color=color, size=size)))}
 }
+
+########################################
+
+#' White panel
+#'
+#' Set ggplot panel background and grid to white.
+whiteness <- function(){theme(panel.background=element_blank(), panel.grid=element_blank())}
