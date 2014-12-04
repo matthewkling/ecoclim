@@ -72,5 +72,5 @@ axes <- function(axis, xintercept=0, yintercept=0, color="gray", size=1){
 
 #' White panel
 #'
-#' Set ggplot panel background and grid to white.
-whiteness <- function(){theme(panel.background=element_blank(), panel.grid=element_blank())}
+#' Set ggplot panel background and grid to blank.
+whiteness <- function(){ggplot2::theme(panel.background=element_blank(), panel.grid=element_blank())}
