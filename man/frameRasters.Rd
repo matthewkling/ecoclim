@@ -6,10 +6,9 @@
 frameRasters(metadata, layer_names = NA)
 }
 \arguments{
-\item{metadata}{Data frame with a "path" variable and other metadata
-variables.}
+\item{metadata}{Data frame with a "path" variable and other metadata variables.}
 
-\item{layer_names}{Character vector of layer names for multiband rasters. Must be correct length.}
+\item{layer_names}{Character vector of layer names for multiband rasters (must be correct length).}
 }
 \value{
 A data frame, with a row for each pixel of each raster in metadata.
