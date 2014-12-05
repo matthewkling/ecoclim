@@ -74,6 +74,7 @@ cw <- function(data, xvar, yvar, resolution=10, fade="white"){
 
       return(list(data=d$data,
                   legend_data=d$legend_data,
+                  legend_data_constrained=dcon,
                   legend=p,
                   legend_constrained=pcon,
                   scales=cwscales()))
