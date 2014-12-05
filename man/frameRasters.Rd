@@ -3,11 +3,13 @@
 \alias{frameRasters}
 \title{Create a data frame from raster files}
 \usage{
-frameRasters(metadata)
+frameRasters(metadata, layer_names = NA)
 }
 \arguments{
-\item{metadata}{A data frame with a "path" variable and other metadata
+\item{metadata}{Data frame with a "path" variable and other metadata
 variables.}
+
+\item{layer_names}{Character vector of layer names for multiband rasters. Must be correct length.}
 }
 \value{
 A data frame, with a row for each pixel of each raster in metadata.
