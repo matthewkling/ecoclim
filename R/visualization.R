@@ -74,3 +74,22 @@ axes <- function(axis, xintercept=0, yintercept=0, color="gray", size=1){
 #'
 #' Set ggplot panel background and grid to blank.
 whiteness <- function(){ggplot2::theme(panel.background=element_blank(), panel.grid=element_blank())}
+
+#######################################
+
+#' Density level for a percentage contour
+#'
+#' Get the 2D density breakpoint needed to generate a contour encompassing a
+#' specific percentage of probability density.
+#'
+#' @param x,y Numeric vectors corresponding to scatterplot coordinates.
+#' @param prob Vector of numerics between 0 and 1, representing the proportion of probability density to include in the contour.
+#' @return A vector of length equal to probs, specifying the breakpoints corresponding to each prob.
+contourLevel <- function(x,y,prob=0.95) {
+      kk <- MASS::kde2d(x,y)
+      dx <- diff(kk$x[1:2])
+      dy <- diff(kk$y[1:2])
+      sz <- sort(kk$z)
+      c1 <- cumsum(sz) * dx * dy
+      approx(c1, sz, xout = 1 - prob)$y
+}
