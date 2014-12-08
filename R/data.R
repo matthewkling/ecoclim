@@ -176,7 +176,7 @@ frameRasters <- function(metadata, layer_names=NA) {
       for(i in 1:nrow(metadata)){
             s <- stack(metadata$path[i])
             if(nlayers(s)==1) names(s) <- "value"
-            if(nlayers(s)>=1 & !is.na(layer_names)) names(s) <- layer_names
+            if(nlayers(s)>=1 & !is.na(layer_names[1])) names(s) <- layer_names
             s <- as.data.frame(rasterToPoints(s))
 
             # add columns for identifying factors
