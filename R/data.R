@@ -169,9 +169,32 @@ sift <- function(data, ...){
 #'
 #' @param metadata Data frame with a "path" variable and other metadata variables.
 #' @param layer_names Character vector of layer names for multiband rasters (must be correct length).
+#' @param cpus Integer indicating number of CPUs to use for parallel processing.
 #' @return A data frame, with a row for each pixel of each raster in metadata.
-frameRasters <- function(metadata, layer_names=NA) {
+frameRasters <- function(metadata, layer_names=NA, cpus=1) {
       require(raster)
+
+      if(cpus>1) {
+            require(doParallel)
+            cl <- makeCluster(cpus)
+            registerDoParallel(cl)
+            ss <- foreach(i=1:nrow(metadata),
+                          .packages=c("raster")) %dopar% {
+                                s <- stack(metadata$path[i])
+                                if(nlayers(s)==1) names(s) <- "value"
+                                if(nlayers(s)>=1 & !is.na(layer_names[1])) names(s) <- layer_names
+                                s <- as.data.frame(rasterToPoints(s))
+
+                                # add columns for identifying factors
+                                for(j in names(metadata)[2:ncol(metadata)]){
+                                      s[,j] <- metadata[,j][i]
+                                }
+
+                                s
+                          }
+            stopCluster(cl)
+            return(do.call("rbind", ss))
+      }
 
       for(i in 1:nrow(metadata)){
             s <- stack(metadata$path[i])

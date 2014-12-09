@@ -3,12 +3,14 @@
 \alias{frameRasters}
 \title{Create a data frame from raster files}
 \usage{
-frameRasters(metadata, layer_names = NA)
+frameRasters(metadata, layer_names = NA, cpus = 1)
 }
 \arguments{
 \item{metadata}{Data frame with a "path" variable and other metadata variables.}
 
 \item{layer_names}{Character vector of layer names for multiband rasters (must be correct length).}
+
+\item{cpus}{Integer indicating number of CPUs to use for parallel processing.}
 }
 \value{
 A data frame, with a row for each pixel of each raster in metadata.
