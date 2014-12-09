@@ -111,13 +111,15 @@ translate <- function(key, to="words"){
                    tmax=list(words="maximum temperature", units="(deg C)", delta="(deg C)"),
                    tmean=list(words="mean temperature", units="(deg C)", delta="(deg C)"),
                    tdmean=list(words="dew point", units="(deg C)", delta="(deg C)"),
-                   ppt=list(words="precipitation", units="(mm)", delta="(ratio)"),
+                   ppt=list(words="precipitation", units="(mm)", delta="(mm)"),
                    vpr=list(words="vapor pressure", units="(Pa)", delta="(Pa)"),
                    cmd=list(words="climatic moisture deficit", units="(mm)", delta="(ratio)"),
                    nffd=list(words="number of frost-free days", units="(days)", delta="(days)"),
                    ffp=list(words="frost-free period", units="(days)", delta="(days)"),
                    dpd=list(words="dew point depression", units="(deg C)", delta="(deg C)"),
-                   pfog=list(words="fog frequency", units="(percentage)", delta="(percentage)"),
+                   pfog=list(words="fog frequency", units="(proportion)", delta="(absolute proportion)"),
+                   pptr=list(words="precipitation", units="(ratio)", delta="(ratio)"),
+
 
 
                    mk_sl=list(words="Mann-Kendall p-value", units="MK p-value"),
