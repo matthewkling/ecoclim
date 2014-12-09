@@ -116,6 +116,9 @@ translate <- function(key, to="words"){
                    cmd=list(words="climatic moisture deficit", units="(mm)", delta="(ratio)"),
                    nffd=list(words="number of frost-free days", units="(days)", delta="(days)"),
                    ffp=list(words="frost-free period", units="(days)", delta="(days)"),
+                   dpd=list(words="dew point depression", units="(deg C)", delta="(deg C)"),
+                   pfog=list(words="fog frequency", units="(percentage)", delta="(percentage)"),
+
 
                    mk_sl=list(words="Mann-Kendall p-value", units="MK p-value"),
                    ts_change=list(words="Theil-Sen change magnitude", units="_variable_units_"),
