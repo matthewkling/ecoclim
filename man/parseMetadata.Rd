@@ -5,7 +5,8 @@
 \title{Parse factors found in filenames or strings.}
 \usage{
 parseMetadata(paths, is.dir = T, variables = NULL, keys = NULL,
-  recursive = T, drops = NULL, skips = NULL, simplify = T)
+  recursive = T, drops = NULL, skips = NULL, pattern = NULL,
+  simplify = T)
 }
 \arguments{
 \item{paths}{A character vector of complete file directory paths.}
@@ -27,6 +28,9 @@ be dropped from results.}
 
 \item{skips}{A character vector of path patterns to ignore during matching,
 typically used if folder names contain factor patterns.}
+
+\item{pattern}{A character indicating a seach pattern to match in file paths.
+All files not containing this path will be ignored.}
 
 \item{simplify}{Logical indicating whether columns with all NA values should
   be removed from result.}

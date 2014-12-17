@@ -36,6 +36,8 @@ capFirst <- function(x){
 #'   be dropped from results.
 #' @param skips A character vector of path patterns to ignore during matching,
 #'   typically used if folder names contain factor patterns.
+#' @param pattern A character indicating a seach pattern to match in file paths.
+#'   All files not containing this path will be ignored.
 #' @param simplify Logical indicating whether columns with all NA values should
 #'   be removed from result.
 #'
@@ -43,7 +45,7 @@ capFirst <- function(x){
 #'   factors.
 #' @aliases prs
 
-parseMetadata <- function(paths, is.dir=T, variables=NULL, keys=NULL, recursive=T, drops=NULL, skips=NULL, simplify=T){
+parseMetadata <- function(paths, is.dir=T, variables=NULL, keys=NULL, recursive=T, drops=NULL, skips=NULL, pattern=NULL, simplify=T){
 
       # default keys
       key <- list(
@@ -74,6 +76,9 @@ parseMetadata <- function(paths, is.dir=T, variables=NULL, keys=NULL, recursive=
 
       # mask patterns that need to be ignored
       if(!is.null(skips)) for(skip in skips) d$info <- gsub(skip, "___", d$info)
+
+      # filter to match patterns
+      if(!is.null(pattern)) d <- d[grepl(pattern, d$path),]
 
       # serach and match key set
       for(k in names(key)){
