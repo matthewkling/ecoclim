@@ -197,10 +197,11 @@ sift <- function(data, ...){
 #' compiles all the files into a single data frame. Supports multiband files.
 #'
 #' @param metadata Data frame with a "path" variable and other metadata variables.
-#' @param layer_names Character vector of layer names for multiband rasters (must be correct length).
+#' @param layer_names Character vector of layer names for multiband rasters that are missing layer names (must be correct length).
 #' @param cpus Integer indicating number of CPUs to use for parallel processing.
+#' @param bands Character vector denoting which layers to keep from multiband files. Default is all.
 #' @return A data frame, with a row for each pixel of each raster in metadata.
-frameRasters <- function(metadata, layer_names=NA, cpus=1) {
+frameRasters <- function(metadata, layer_names=NA, cpus=1, bands=NA) {
       require(raster)
 
       if(cpus>1) {
@@ -212,6 +213,7 @@ frameRasters <- function(metadata, layer_names=NA, cpus=1) {
                                 s <- stack(metadata$path[i])
                                 if(nlayers(s)==1) names(s) <- "value"
                                 if(nlayers(s)>=1 & !is.na(layer_names[1])) names(s) <- layer_names
+                                if(nlayers(s)>=1 & !is.na(bands[1])) s <- raster::subset(s, bands)
                                 s <- as.data.frame(rasterToPoints(s))
 
                                 # add columns for identifying factors
@@ -229,6 +231,7 @@ frameRasters <- function(metadata, layer_names=NA, cpus=1) {
             s <- stack(metadata$path[i])
             if(nlayers(s)==1) names(s) <- "value"
             if(nlayers(s)>=1 & !is.na(layer_names[1])) names(s) <- layer_names
+            if(nlayers(s)>=1 & !is.na(bands[1])) s <- raster::subset(s, bands)
             s <- as.data.frame(rasterToPoints(s))
 
             # add columns for identifying factors
