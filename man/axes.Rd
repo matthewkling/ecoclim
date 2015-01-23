@@ -3,7 +3,8 @@
 \alias{axes}
 \title{Add reference lines to a ggplot}
 \usage{
-axes(axis, xintercept = 0, yintercept = 0, color = "gray", size = 1)
+axes(axis = "xy", xintercept = 0, yintercept = 0, color = "gray",
+  size = 1)
 }
 \arguments{
 \item{axis}{Character vector specifying the axis, either "x", "y", or "xy".}
