@@ -196,10 +196,13 @@ sift <- function(data, ...){
 #' This function takes a metadata frame (likely generated via parseMetadata) and
 #' compiles all the files into a single data frame. Supports multiband files.
 #'
-#' @param metadata Data frame with a "path" variable and other metadata variables.
-#' @param layer_names Character vector of layer names for multiband rasters that are missing layer names (must be correct length).
+#' @param metadata Data frame with a "path" variable and other metadata
+#'   variables.
+#' @param layer_names Character vector of layer names for multiband rasters that
+#'   are missing layer names (must be correct length).
+#' @param bands Character vector denoting which layers to keep from multiband
+#'   files. Default is all.
 #' @param cpus Integer indicating number of CPUs to use for parallel processing.
-#' @param bands Character vector denoting which layers to keep from multiband files. Default is all.
 #' @return A data frame, with a row for each pixel of each raster in metadata.
 frameRasters <- function(metadata, layer_names=NA, cpus=1, bands=NA) {
       require(raster)

@@ -6,13 +6,16 @@
 frameRasters(metadata, layer_names = NA, cpus = 1, bands = NA)
 }
 \arguments{
-\item{metadata}{Data frame with a "path" variable and other metadata variables.}
+\item{metadata}{Data frame with a "path" variable and other metadata
+variables.}
 
-\item{layer_names}{Character vector of layer names for multiband rasters that are missing layer names (must be correct length).}
+\item{layer_names}{Character vector of layer names for multiband rasters that
+are missing layer names (must be correct length).}
 
 \item{cpus}{Integer indicating number of CPUs to use for parallel processing.}
 
-\item{bands}{Character vector denoting which layers to keep from multiband files. Default is all.}
+\item{bands}{Character vector denoting which layers to keep from multiband
+files. Default is all.}
 }
 \value{
 A data frame, with a row for each pixel of each raster in metadata.
