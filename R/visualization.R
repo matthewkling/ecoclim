@@ -61,7 +61,7 @@ eb <- function() ggplot2::element_blank()
 #' @param size Size.
 #' @return A ggplot layer or layers.
 #'
-axes <- function(axis, xintercept=0, yintercept=0, color="gray", size=1){
+axes <- function(axis="xy", xintercept=0, yintercept=0, color="gray", size=1){
       if(axis=="y"){return(geom_vline(xintercept=xintercept, color=color, size=size))}
       if(axis=="x"){return(geom_hline(yintercept=yintercept, color=color, size=size))}
       if(axis=="xy"){return(list(geom_vline(xintercept=xintercept, color=color, size=size),
