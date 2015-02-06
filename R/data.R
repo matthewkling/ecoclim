@@ -252,3 +252,12 @@ frameRasters <- function(metadata, layer_names=NA, cpus=1, bands=NA) {
 ########################################
 
 
+#' Euclidian distance
+#'
+#' Calculate the Euclidian distance from a set of leg lengths. We use this to
+#' calculate SED based on z-scores. Square root of sum of squares.
+#'
+#' @param z Numeric vector of z-scores or other distances.
+euclid <- function(z){
+      sqrt(sum(z^2))
+}
