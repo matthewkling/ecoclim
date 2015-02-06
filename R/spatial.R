@@ -89,7 +89,7 @@ partitionRaster <- function(raster, nchunks, chunk, subextent=NA){
 stackBands <- function(paths, band){
       for(i in paths){
             r <- brick(i)
-            r <- subset(r, band)
+            r <- raster::subset(r, band)
             if(i==paths[1]) s <- r else{s <- stack(s, r)}
       }
       s
