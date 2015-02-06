@@ -76,3 +76,23 @@ partitionRaster <- function(raster, nchunks, chunk, subextent=NA){
 }
 
 
+####################
+
+#' Stack up a single band from each of several multiband files.
+#'
+#' This is a simple convenience function that pulls a named or numbered band
+#' from each of several multiband files and stacks them up.
+#'
+#' @param paths A character vecor of raster filenames.
+#' @param band A single integer or srting denoting which layer to grab.
+#' @return A raster stack with one layer from each file in paths.
+stackBands <- function(paths, band){
+      for(i in paths){
+            r <- brick(i)
+            r <- subset(r, band)
+            if(i==paths[1]) s <- r else{s <- stack(s, r)}
+      }
+      s
+}
+
+
