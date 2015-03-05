@@ -271,9 +271,9 @@ euclid <- function(z){
 #' files, output file type, and output folder. All input files will be saved in
 #' new format to the output folder, with the same filename as the original.
 convertRaster <- function() {
-      froms <- choose.files()
+      froms <- choose.files(caption="Select raster files to convert")
       ext <- winDialogString("Select an output format\n(.asc, .bil, .grd, .img, .nc, .tif)", ".asc")
-      outdir <- choose.dir()
+      outdir <- choose.dir(caption="Select output folder for converted files")
       for(from in froms){
             name <- basename(tools::file_path_sans_ext(from))
             out <- paste0(outdir, "/", name, ext)
