@@ -261,3 +261,24 @@ frameRasters <- function(metadata, layer_names=NA, cpus=1, bands=NA) {
 euclid <- function(z){
       sqrt(sum(z^2))
 }
+
+########################################
+
+
+#' Convert raster files
+#'
+#' Convert raster file(s) to a new format. Via popup boxes, user specifies input
+#' files, output folder, and output file type. All input files will be saved in
+#' new format to the output folder, with the same filename as the original.
+convertRaster <- function() {
+      froms <- choose.files()
+      ext <- winDialogString("Select an output format\n(.asc, .bil, .grd, .img, .nc, .tif)", ".asc")
+      outdir <- choose.dir()
+      for(from in froms){
+            name <- basename(tools::file_path_sans_ext(from))
+            out <- paste0(outdir, "/", name, ext)
+            to <- raster::raster(from)
+            raster::writeRaster(to, out)
+            writeLines(paste("saved:", out))
+      }
+}
