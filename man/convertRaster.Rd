@@ -6,8 +6,8 @@
 convertRaster()
 }
 \description{
-Convert raster file(s) to a new format. Via popup boxes, user specifies input
-files, output folder, and output file type. All input files will be saved in
+Convert raster file(s) to a new format. Via popup boxes, specify input
+files, output file type, and output folder. All input files will be saved in
 new format to the output folder, with the same filename as the original.
 }
 
