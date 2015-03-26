@@ -277,7 +277,7 @@ convertRaster <- function() {
       for(from in froms){
             name <- basename(tools::file_path_sans_ext(from))
             out <- paste0(outdir, "/", name, ext)
-            to <- raster::raster(from)
+            to <- raster::stack(from)
             raster::writeRaster(to, out)
             writeLines(paste("saved:", out))
       }
