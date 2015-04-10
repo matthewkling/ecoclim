@@ -96,4 +96,39 @@ stackBands <- function(paths, band){
 }
 
 
+####################
+
+#' Faster version of raster::trim.
+#'
+#' Raster::trim can be insanely slow for large files. This alternative, modified
+#' slightly from
+#' http://blog.snap.uaf.edu/2012/09/10/speeding-up-r-raster-package-trim-function/,
+#' runs way faster. But unlike the raster package version there's no guarantee
+#' it won't run into memory limitations.
+#' @param x Raster or matrix.
+#' @param out Output file format, either "raster", or "matrix".
+trimFast <- function(x,out="raster"){
+      if(!any(out==c("matrix","raster"))) stop("output must be a matrix or raster")
+      if(class(x)=="matrix" & out=="raster") stop("if you supply a matrix, you must use out='matrix'")
+      if(class(x)=="RasterLayer") {
+            if(out=="raster") { cres <- 0.5*res(x); crs <- projection(x); y <- x }
+            x <- matrix(as.array(x),nrow=nrow(x),ncol=ncol(x))
+      }
+      if(class(x)!="matrix") { stop("x must be a matrix or raster")
+      } else {
+            r.na <- c.na <- c()
+            for(i in 1:nrow(x)) r.na <- c(r.na, all(is.na(x[i,])))
+            for(i in 1:ncol(x)) c.na <- c(c.na, all(is.na(x[,i])))
+            r1 <- 1 + which(diff(which(r.na))>1)[1]; r2 <- nrow(x) -  which(diff(which(rev(r.na)))>1)[1]
+            c1 <- 1 + which(diff(which(c.na))>1)[1]; c2 <- ncol(x) - which(diff(which(rev(c.na)))>1)[1]
+            x <- x[r1:r2,c1:c2]
+            if(out=="raster") {
+                  xs <- xFromCol(y,col=c(c1,c2)) + c(-1,1)*cres[1]
+                  ys <- yFromRow(y,row=c(r2,r1)) + c(-1,1)*cres[2]
+                  x <- raster(x,xmn=xs[1],xmx=xs[2],ymn=ys[1],ymx=ys[2],crs=crs)
+            }
+      }
+      return(x)
+}
+
 
