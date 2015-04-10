@@ -119,8 +119,10 @@ trimFast <- function(x,out="raster"){
             r.na <- c.na <- c()
             for(i in 1:nrow(x)) r.na <- c(r.na, all(is.na(x[i,])))
             for(i in 1:ncol(x)) c.na <- c(c.na, all(is.na(x[,i])))
-            r1 <- 1 + which(diff(which(r.na))>1)[1]; r2 <- nrow(x) -  which(diff(which(rev(r.na)))>1)[1]
-            c1 <- 1 + which(diff(which(c.na))>1)[1]; c2 <- ncol(x) - which(diff(which(rev(c.na)))>1)[1]
+            r1 <- 1 + which(diff(which(r.na))>1)[1]
+            r2 <- nrow(x) -  which(diff(which(rev(r.na)))>1)[1]
+            c1 <- 1 + which(diff(which(c.na))>1)[1]
+            c2 <- ncol(x) - which(diff(which(rev(c.na)))>1)[1]
             x <- x[r1:r2,c1:c2]
             if(out=="raster") {
                   xs <- xFromCol(y,col=c(c1,c2)) + c(-1,1)*cres[1]
