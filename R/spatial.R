@@ -112,7 +112,7 @@ trimFast <- function(x,out="raster"){
       if(class(x)=="matrix" & out=="raster") stop("if you supply a matrix, you must use out='matrix'")
       if(class(x)=="RasterLayer") {
             if(out=="raster") { cres <- 0.5*res(x); crs <- projection(x); y <- x }
-            x <- matrix(as.array(x),nrow=nrow(x),ncol=ncol(x))
+            x <- matrix(raster::as.array(x),nrow=nrow(x),ncol=ncol(x))
       }
       if(class(x)!="matrix") { stop("x must be a matrix or raster")
       } else {
@@ -132,5 +132,4 @@ trimFast <- function(x,out="raster"){
       }
       return(x)
 }
-
 
