@@ -317,6 +317,21 @@ clearTempFiles <- function(tempdir="C:/Users/matt_kling/AppData/Local/Temp", loo
 
 #' Update the ecoclim package
 #'
-#' Convenience function.
+#' Convenience function -- download the latest version of ecoclim package from
+#' github.
 updateEcoclim <- function() devtools::install_github("matthewkling/ecoclim")
 
+
+
+
+########################################
+
+
+#' Convert logit to proportion
+#'
+#' Logistic regression uses a logistic link function to convert between
+#' proportions and the modeled dependent variable. This function back-converts,
+#' for use when transforming model predictions into proportions.
+#' @param x Numeric: logit.
+#' @return Numeric: proportion.
+logit2prop <- function(x){exp(x)/(1+exp(x))}

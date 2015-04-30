@@ -7,6 +7,7 @@
 updateEcoclim()
 }
 \description{
-Convenience function.
+Convenience function -- download the latest version of ecoclim package from
+github.
 }
 
