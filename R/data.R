@@ -309,3 +309,14 @@ clearTempFiles <- function(tempdir="C:/Users/matt_kling/AppData/Local/Temp", loo
             if(run) Sys.sleep(5*60)
       }
 }
+
+
+
+########################################
+
+
+#' Update the ecoclim package
+#'
+#' Convenience function.
+updateEcoclim <- function() devtools::install_github("matthewkling/ecoclim")
+
