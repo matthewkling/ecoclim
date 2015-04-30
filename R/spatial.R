@@ -213,3 +213,26 @@ pwdSamplePA <- function (TP, TA, EP, EA, tr = 0.2, max_points=1000){
 
       return(list(eval_pres=EP, eval_abs=EA))
 }
+
+
+
+
+
+####################
+
+#' Turn a data matrix into a raster stack.
+#'
+#' Create a raster stack from a matrix, where each matrix row is a pixel and
+#' each column is a layer.
+#'
+#' @param data A matrix.
+#' @param template A raster layer to be used as spatial template; dims must
+#'   match data.
+#' @return A raster stack.
+stackMatrix <- function(data, template){
+      n <- colnames(data)
+      s <- lapply(1:ncol(data), function(x) raster(as.matrix(data[,x]), template=template))
+      s <- do.call("stack", s)
+      names(s) <- n
+      s
+}
