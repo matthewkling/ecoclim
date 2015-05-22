@@ -236,3 +236,43 @@ stackMatrix <- function(data, template){
       names(s) <- n
       s
 }
+
+
+####################
+
+#' Stack rasters with differing extents.
+#'
+#' The native raster::stack function fails if the input layers don't have
+#' identical extents. This is a workaround that extends each input layer by a
+#' buffer, and then intersects them. It will only work if all input layers share
+#' other key spatial characteristics like resolution, projection, etc.
+#'
+#' @param x Layers to stack, as a vector of raster file paths or a list of
+#'   raster layers.
+#' @param intersect Logical: Should only the minimum intersection of the input
+#'   layers be retained? (If FALSE, the default, layers will be extended to
+#'   ratain all data.)
+#' @return A raster stack.
+motleyStack <- function(x, intersect=F){
+
+      if(class(x) == "list"){
+            m <- x
+      } else{
+            m <- lapply(x, raster)
+      }
+
+      # determine minimal buffer size
+      b <- lapply(m, function(x) as.vector(extent(x)))
+      b <- do.call("rbind", b)
+      b <- apply(b, 2, function(b=x) max(x) - min(x))
+      b <- ceiling(max(b) / min(res(m[[1]]))) + 1
+      if(intersect) buffer <- 0
+      if(!intersect) buffer <- b
+
+      # extend and intersect layers
+      m <- lapply(m, function(x) extend(x, buffer))
+      e <- lapply(m, extent)
+      for(i in 1:length(e)) e <- lapply(e, function(x) intersect(x, e[[i]]))
+      m <- lapply(m, function(x) crop(x, e[[1]]))
+      do.call("stack", m)
+}
