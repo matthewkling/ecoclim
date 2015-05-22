@@ -254,7 +254,6 @@ stackMatrix <- function(data, template){
 #'   ratain all data.)
 #' @return A raster stack.
 motleyStack <- function(x, intersect=F){
-
       if(class(x) == "list"){
             m <- x
       } else{
@@ -272,7 +271,7 @@ motleyStack <- function(x, intersect=F){
       # extend and intersect layers
       m <- lapply(m, function(x) extend(x, buffer))
       e <- lapply(m, extent)
-      for(i in 1:length(e)) e <- lapply(e, function(x) intersect(x, e[[i]]))
+      for(i in 1:length(e)) e <- lapply(e, function(x) raster::intersect(x, e[[i]]))
       m <- lapply(m, function(x) crop(x, e[[1]]))
       do.call("stack", m)
 }
