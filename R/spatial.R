@@ -261,7 +261,8 @@ motleyStack <- function(x, intersect=F){
       }
 
       # determine minimal buffer size
-      b <- lapply(m, function(z) as.vector(raster::extent(z)))
+      b <- lapply(m, function(z) extent(z))
+      b <- lapply(b, as.vector)
       b <- do.call("rbind", b)
       b <- apply(b, 2, function(z) max(z) - min(z))
       b <- ceiling(max(b) / min(res(m[[1]]))) + 1
