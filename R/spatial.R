@@ -261,17 +261,17 @@ motleyStack <- function(x, intersect=F){
       }
 
       # determine minimal buffer size
-      b <- lapply(m, function(x) as.vector(extent(x)))
+      b <- lapply(m, function(z) as.vector(raster::extent(z)))
       b <- do.call("rbind", b)
-      b <- apply(b, 2, function(x) max(x) - min(x))
+      b <- apply(b, 2, function(z) max(z) - min(z))
       b <- ceiling(max(b) / min(res(m[[1]]))) + 1
       if(intersect) buffer <- 0
       if(!intersect) buffer <- b
 
       # extend and intersect layers
-      m <- lapply(m, function(x) extend(x, buffer))
+      m <- lapply(m, function(z) extend(z, buffer))
       e <- lapply(m, extent)
-      for(i in 1:length(e)) e <- lapply(e, function(x) raster::intersect(x, e[[i]]))
-      m <- lapply(m, function(x) crop(x, e[[1]]))
+      for(i in 1:length(e)) e <- lapply(e, function(z) raster::intersect(z, e[[i]]))
+      m <- lapply(m, function(z) crop(z, e[[1]]))
       do.call("stack", m)
 }
