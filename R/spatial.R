@@ -254,10 +254,11 @@ stackMatrix <- function(data, template){
 #'   ratain all data.)
 #' @return A raster stack.
 motleyStack <- function(x, intersect=F){
+      require("raster")
       if(class(x) == "list"){
             m <- x
       } else{
-            m <- lapply(x, raster)
+            m <- lapply(x, stack)
       }
 
       # determine minimal buffer size
@@ -274,5 +275,5 @@ motleyStack <- function(x, intersect=F){
       e <- lapply(m, extent)
       for(i in 1:length(e)) e <- lapply(e, function(z) raster::intersect(z, e[[i]]))
       m <- lapply(m, function(z) crop(z, e[[1]]))
-      do.call("stack", m)
+      return(do.call("stack", m))
 }
