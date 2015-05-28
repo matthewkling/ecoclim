@@ -90,6 +90,6 @@ cw <- function(data, xvar, yvar, resolution=10, fade="white", origin=c(0,0), fli
                   legend_data_constrained=dcon,
                   legend=p,
                   legend_constrained=pcon,
-                  scales=cwscales()))
+                  scales=cwscales(flip)))
 }
 
