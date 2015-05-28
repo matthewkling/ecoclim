@@ -257,8 +257,8 @@ motleyStack <- function(x, intersect=F){
       require("raster")
       if(class(x) == "list"){
             m <- x
-      } else{
-            m <- lapply(x, stack)
+      }else{
+            m <- lapply(x, raster)
       }
 
       # determine minimal buffer size
