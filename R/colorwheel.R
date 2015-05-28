@@ -39,8 +39,9 @@ cwscales <- function(){
       right <- hsv(1,1,1) # red
       top <- hsv(.25,1,1) # green
       fill <- scale_fill_gradientn(colours=c(right, top, left, bottom, right), limits=c(0, 360), guide="none")
+      color <- scale_color_gradientn(colours=c(right, top, left, bottom, right), limits=c(0, 360), guide="none")
       alpha <- scale_alpha(range=c(0,1), guide="none")
-      return(list(fill, alpha))
+      return(list(fill, color, alpha))
 }
 
 
