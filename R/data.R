@@ -362,6 +362,7 @@ pairsData <- function(data, xy_vars, z_vars=NULL, mirror=F){
             v2 <- combos[2,pair]
             dpair <- data.frame(pair_id=as.character(pair), x_var=v2, y_var=v1, x_value=data[,v2], y_value=data[,v1])
             zdata <- data[,z_vars]
+            if(length(z_vars)==1) zdata <- as.data.frame(zdata)
             names(zdata) <- z_vars
             dpair <- cbind(dpair, zdata)
             if(pair==1) f <- dpair else(f <- rbind(f, dpair))
