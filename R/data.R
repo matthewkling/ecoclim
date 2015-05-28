@@ -335,3 +335,47 @@ updateEcoclim <- function() devtools::install_github("matthewkling/ecoclim")
 #' @param x Numeric: logit.
 #' @return Numeric: proportion.
 logit2prop <- function(x){exp(x)/(1+exp(x))}
+
+
+
+####################
+
+#' Generate data for pairwise scatterplot matrix.
+#'
+#' Convert a wide dataset into a format that can be fed to ggplot to create a
+#' scatterplot matrix.
+#'
+#' @param data Data frame, in "wide" format (i.e. must contain a column for each
+#'   xy_vars and z_vars).
+#' @param xy_vars Character vector indicating variables to be paired (these
+#'   would be the x and y dimensions if the result is used for a scatterplot
+#'   matrix).
+#' @param z_vars Optional character vector indicating additional variables to
+#'   retain for each record.
+#' @param mirror Logical indicating whether to generate data for both upper and
+#'   lower trianges of the matrix (default is FALSE).
+#' @return A restructured data frame.
+pairsData <- function(data, xy_vars, z_vars=NULL, mirror=F){
+      combos <- combn(xy_vars, 2)
+      for(pair in 1:ncol(combos)){
+            v1 <- combos[1,pair]
+            v2 <- combos[2,pair]
+            dpair <- data.frame(pair_id=as.character(pair), x_var=v2, y_var=v1, x_value=data[,v2], y_value=data[,v1])
+            zdata <- data[,z_vars]
+            names(zdata) <- z_vars
+            dpair <- cbind(dpair, zdata)
+            if(pair==1) f <- dpair else(f <- rbind(f, dpair))
+      }
+      if(mirror){
+            f2 <- f
+            f2$x_var <- f$y_var
+            f2$x_value <- f$y_value
+            f2$y_var <- f$x_var
+            f2$y_value <- f$x_value
+            f$triangle <- 1
+            f2$triangle <- 2
+            f <- rbind(f, f2)
+      }
+      return(f)
+}
+
