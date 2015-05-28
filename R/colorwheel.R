@@ -16,7 +16,7 @@ polarize <- function(data, xvar, yvar, xyratio, xorigin=0, yorigin=0){
 #' Generate circular legend data.
 #'
 #' Construct a data frame to be used in color wheel legend plotting.
-cwdata <- function(data, xvar, yvar, resolution=10){
+cwdata <- function(data, xvar, yvar, resolution=10, origin=c(0,0)){
       xrange <- range(data[,xvar], na.rm=T)
       yrange <- range(data[,yvar], na.rm=T)
       xmag <- plyr::round_any(max(abs(xrange)), (xrange[2]-xrange[1])/20, ceiling)
@@ -25,8 +25,8 @@ cwdata <- function(data, xvar, yvar, resolution=10){
       xbinwidth <- xmag/resolution*2
       ybinwidth <- ymag/resolution*2
       ldata <- expand.grid(x=seq(-xmag, xmag, xbinwidth), y=seq(-ymag, ymag, ybinwidth))
-      ldata <- polarize(ldata, "x", "y", xyratio)
-      data <- polarize(data, xvar, yvar, xyratio)
+      ldata <- polarize(ldata, "x", "y", xyratio, xorigin=origin[1], yorigin=origin[2])
+      data <- polarize(data, xvar, yvar, xyratio, xorigin=origin[1], yorigin=origin[2])
       return(list(data=data, legend_data=ldata, xmag=xmag, ymag=ymag, xbinwidth=xbinwidth, ybinwidth=ybinwidth))
 }
 
@@ -54,9 +54,9 @@ cwscales <- function(){
 #'  @param resolution Integer: one-dimensional granularity of raster legend.
 #'  @param fade Color at center of legend.
 #'  @return A colorwheel object consisting of data, plots, and scales.
-cw <- function(data, xvar, yvar, resolution=10, fade="white"){
+cw <- function(data, xvar, yvar, resolution=10, fade="white", origin=c(0,0)){
       require(ggplot2)
-      d <- cwdata(data, xvar, yvar, resolution)
+      d <- cwdata(data, xvar, yvar, resolution, origin=origin)
 
       p <- ggplot(d$legend_data, aes(x, y, fill=angle, alpha=distance)) +
             geom_raster(fill=fade, alpha=1) +
