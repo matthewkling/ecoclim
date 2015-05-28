@@ -33,11 +33,23 @@ cwdata <- function(data, xvar, yvar, resolution=10, origin=c(0,0)){
 #' Scales for colorwheel legend
 #'
 #' Get fill and alpha scales for use in legend construction.
-cwscales <- function(){
+cwscales <- function(flip=NULL){
       left <- hsv(.5,1,1) # blue
       bottom <- hsv(.75,1,1) # purple
       right <- hsv(1,1,1) # red
       top <- hsv(.25,1,1) # green
+
+      if("vertical" %in% flip){
+            temp <- top
+            top <- bottom
+            bottom <- temp
+      }
+      if("horizontal" %in% flip){
+            temp <- left
+            left <- right
+            right <- temp
+      }
+
       fill <- scale_fill_gradientn(colours=c(right, top, left, bottom, right), limits=c(0, 360), guide="none")
       color <- scale_color_gradientn(colours=c(right, top, left, bottom, right), limits=c(0, 360), guide="none")
       alpha <- scale_alpha(range=c(0,1), guide="none")
@@ -55,7 +67,7 @@ cwscales <- function(){
 #'  @param resolution Integer: one-dimensional granularity of raster legend.
 #'  @param fade Color at center of legend.
 #'  @return A colorwheel object consisting of data, plots, and scales.
-cw <- function(data, xvar, yvar, resolution=10, fade="white", origin=c(0,0)){
+cw <- function(data, xvar, yvar, resolution=10, fade="white", origin=c(0,0), flip){
       require(ggplot2)
       d <- cwdata(data, xvar, yvar, resolution, origin=origin)
 
@@ -71,7 +83,7 @@ cw <- function(data, xvar, yvar, resolution=10, fade="white", origin=c(0,0)){
             geom_raster(fill=fade, alpha=1) +
             geom_raster() +
             #xlim(-d$xmag, d$xmag) + ylim(-d$ymag, d$ymag) +
-            cwscales()
+            cwscales(flip)
 
       return(list(data=d$data,
                   legend_data=d$legend_data,
