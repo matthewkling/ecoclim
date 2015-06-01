@@ -67,14 +67,16 @@ cwscales <- function(flip=NULL,
 #'  @param resolution Integer: one-dimensional granularity of raster legend.
 #'  @param fade Color at center of legend.
 #'  @return A colorwheel object consisting of data, plots, and scales.
-cw <- function(data, xvar, yvar, resolution=10, fade="white", origin=c(0,0), flip=NULL){
+cw <- function(data, xvar, yvar,
+               resolution=10, fade="white", origin=c(0,0), flip=NULL,
+               left=left <- hsv(.5,1,1), bottom=hsv(.75,1,1), right=hsv(1,1,1), top=hsv(.25,1,1)){
       require(ggplot2)
       d <- cwdata(data, xvar, yvar, resolution, origin=origin)
 
       p <- ggplot(d$legend_data, aes(x, y, fill=angle, alpha=distance)) +
             geom_raster(fill=fade, alpha=1) +
             geom_raster() +
-            cwscales(flip)
+            cwscales(flip=flip, top=top, right=right, bottom=bottom, left=left)
 
       dcon <- d$data
       dcon[,xvar] <- plyr::round_any(dcon[,xvar], d$xbinwidth)
@@ -83,13 +85,13 @@ cw <- function(data, xvar, yvar, resolution=10, fade="white", origin=c(0,0), fli
             geom_raster(fill=fade, alpha=1) +
             geom_raster() +
             #xlim(-d$xmag, d$xmag) + ylim(-d$ymag, d$ymag) +
-            cwscales(flip)
+            cwscales(flip=flip, top=top, right=right, bottom=bottom, left=left)
 
       return(list(data=d$data,
                   legend_data=d$legend_data,
                   legend_data_constrained=dcon,
                   legend=p,
                   legend_constrained=pcon,
-                  scales=cwscales(flip)))
+                  scales=cwscales(flip=flip, top=top, right=right, bottom=bottom, left=left)))
 }
 
