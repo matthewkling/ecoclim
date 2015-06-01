@@ -4,8 +4,8 @@
 \alias{cwscales}
 \title{Scales for colorwheel legend}
 \usage{
-cwscales(flip = NULL, left = left <- hsv(0.5, 1, 1), bottom = hsv(0.75, 1,
-  1), right = hsv(1, 1, 1), top = hsv(0.25, 1, 1))
+cwscales(flip = NULL, left = hsv(0.5, 1, 1), bottom = hsv(0.75, 1, 1),
+  right = hsv(1, 1, 1), top = hsv(0.25, 1, 1))
 }
 \description{
 Get fill and alpha scales for use in legend construction.
