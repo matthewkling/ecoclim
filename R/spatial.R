@@ -278,3 +278,7 @@ motleyStack <- function(x, intersect=F){
       m <- lapply(m, function(z) crop(z, e[[1]]))
       return(do.call("stack", m))
 }
+
+
+
+

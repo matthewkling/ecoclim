@@ -380,3 +380,4 @@ pairsData <- function(data, xy_vars, z_vars=NULL, mirror=F){
       return(f)
 }
 
+
