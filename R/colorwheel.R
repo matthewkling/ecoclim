@@ -66,6 +66,10 @@ cwscales <- function(flip=NULL,
 #'  @param xvar, yvar Names of data frame variables, as strings.
 #'  @param resolution Integer: one-dimensional granularity of raster legend.
 #'  @param fade Color at center of legend.
+#'  @param top Color at top of wheel.
+#'  @param right Color at right of wheel.
+#'  @param bottom Color at bottom of wheel.
+#'  @param left Color at left of wheel.
 #'  @return A colorwheel object consisting of data, plots, and scales.
 cw <- function(data, xvar, yvar,
                resolution=10, fade="white", origin=c(0,0), flip=NULL,

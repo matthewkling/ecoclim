@@ -16,6 +16,14 @@ cw(data, xvar, yvar, resolution = 10, fade = "white", origin = c(0, 0),
 \item{resolution}{Integer: one-dimensional granularity of raster legend.}
 
 \item{fade}{Color at center of legend.}
+
+\item{left}{Color at left of wheel.}
+
+\item{bottom}{Color at bottom of wheel.}
+
+\item{right}{Color at right of wheel.}
+
+\item{top}{Color at top of wheel.}
 }
 \value{
 A colorwheel object consisting of data, plots, and scales.
