@@ -33,11 +33,11 @@ cwdata <- function(data, xvar, yvar, resolution=10, origin=c(0,0)){
 #' Scales for colorwheel legend
 #'
 #' Get fill and alpha scales for use in legend construction.
-cwscales <- function(flip=NULL){
-      left <- hsv(.5,1,1) # blue
-      bottom <- hsv(.75,1,1) # purple
-      right <- hsv(1,1,1) # red
-      top <- hsv(.25,1,1) # green
+cwscales <- function(flip=NULL,
+                     left=left <- hsv(.5,1,1), # blue
+                     bottom=hsv(.75,1,1), # purple
+                     right=hsv(1,1,1), # red
+                     top=hsv(.25,1,1)){ # green
 
       if("vertical" %in% flip){
             temp <- top
